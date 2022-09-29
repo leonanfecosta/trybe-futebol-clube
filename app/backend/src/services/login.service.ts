@@ -1,14 +1,11 @@
 import * as bcrypt from 'bcryptjs';
 import createToken from '../helpers/createToken';
-import UserModel from '../models/user.model';
 import { ILogin } from '../interfaces/user.interface';
+import Users from '../database/models/users.model';
 
 export default class LoginService {
-  constructor(private model = new UserModel()) {}
-
-  async login({ email, password }: ILogin) {
-    const user = await this.model.findOne(email);
-
+  login = async ({ email, password }: ILogin) => {
+    const user = await Users.findOne({ where: { email } });
     if (!user) {
       return { code: 401, result: { message: 'Incorrect email or password' } };
     }
@@ -22,5 +19,5 @@ export default class LoginService {
     const token = createToken({ email: user.email });
 
     return { code: 200, result: { token } };
-  }
+  };
 }
