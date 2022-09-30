@@ -15,4 +15,10 @@ export default class LoginController {
 
     return res.status(code).json({ token: result.token });
   };
+
+  validateJWT = async (req: Request, res: Response) => {
+    const { role } = res.locals.user;
+
+    return res.status(200).json({ role });
+  };
 }
