@@ -99,4 +99,51 @@ describe('Testa a rota /login', () => {
       );
     });
   });
+
+  describe('POST /login', () => {
+    before(() => {
+      sinon.stub(Users, 'findOne').resolves();
+    });
+
+    after(() => {
+      (Users.findOne as sinon.SinonStub).restore();
+    });
+
+    it('deve retornar erro 401 se o email for invalido', async () => {
+      const chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: 'wrongemail',
+        password: 'secret_admin',
+      });
+
+      expect(chaiHttpResponse.status).to.be.eq(401);
+      expect(chaiHttpResponse.body).to.have.property('message');
+      expect(chaiHttpResponse.body.message).to.be.eq(
+        'Incorrect email or password'
+      );
+    });
+
+    it('deve retornar erro 400 se o email não for enviado', async () => {
+      const chaiHttpResponse = await chai.request(app).post('/login').send({
+        password: 'secret_admin',
+      });
+
+      expect(chaiHttpResponse.status).to.be.eq(400);
+      expect(chaiHttpResponse.body).to.have.property('message');
+      expect(chaiHttpResponse.body.message).to.be.eq(
+        'All fields must be filled'
+      );
+    });
+
+    it('deve retornar erro 400 se a senha não for enviada', async () => {
+      const chaiHttpResponse = await chai.request(app).post('/login').send({
+        email: correctUser.email,
+      });
+
+      expect(chaiHttpResponse.status).to.be.eq(400);
+      expect(chaiHttpResponse.body).to.have.property('message');
+      expect(chaiHttpResponse.body.message).to.be.eq(
+        'All fields must be filled'
+      );
+    });
+  });
 });

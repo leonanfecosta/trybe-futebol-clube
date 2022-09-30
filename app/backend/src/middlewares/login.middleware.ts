@@ -10,7 +10,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   const emailRegex = /\S+@\S+\.\S+/;
   if (!emailRegex.test(user.email)) {
-    return res.status(400).json({ message: 'Incorrect email or password' });
+    return res.status(401).json({ message: 'Incorrect email or password' });
   }
 
   next();
