@@ -2,6 +2,7 @@ import Teams from '../database/models/teams.model';
 import Matches from '../database/models/matches.model';
 import { IMatches } from '../interfaces/matches.interface';
 import { IResult } from '../interfaces/result.interface';
+import { IScore } from '../interfaces/score.interface';
 
 export default class MatchesService {
   getAllMatches = async (): Promise<IMatches[]> => {
@@ -54,17 +55,12 @@ export default class MatchesService {
       return { code: 404, result: { message: 'There is no team with such id!' },
       };
     }
-
     if (homeTeam === awayTeam) {
-      return {
-        code: 401,
-        result: {
-          message: 'It is not possible to create a match with two equal teams',
-        },
+      return { code: 401,
+        result: { message: 'It is not possible to create a match with two equal teams' },
       };
     }
     const match = await Matches.create({ ...data, inProgress: true });
-
     return { code: 201, result: match };
   };
 
@@ -72,5 +68,12 @@ export default class MatchesService {
     await Matches.update({ inProgress: false }, { where: { id } });
 
     return { message: 'Finished' };
+  };
+
+  updateMatchScore = async (id: number, data: IScore): Promise<IResult> => {
+    const { homeTeamGoals, awayTeamGoals } = data;
+    await Matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+    return { code: 200, result: { message: 'Score updated' } };
   };
 }
