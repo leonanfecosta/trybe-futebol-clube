@@ -49,4 +49,10 @@ export default class MatchesService {
 
     return match;
   };
+
+  updateMatch = async (id: number): Promise<object> => {
+    await Matches.update({ inProgress: false }, { where: { id } });
+
+    return { message: 'Finished' };
+  };
 }
