@@ -51,7 +51,6 @@ Matches.init({
   sequelize: db,
   modelName: 'matches',
   timestamps: false,
-  tableName: 'matches',
   underscored: true,
 });
 

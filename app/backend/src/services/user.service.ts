@@ -16,7 +16,12 @@ export default class LoginService {
       return { code: 401, result: { message: 'Incorrect email or password' } };
     }
 
-    const token = createToken({ email: user.email });
+    const userInfo = {
+      email: user.email,
+      role: user.role,
+    };
+
+    const token = createToken(userInfo);
 
     return { code: 200, result: { token } };
   };
