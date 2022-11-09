@@ -16,6 +16,7 @@ A partir de uma aplicação Front-End desenvolvida pela _[Trybe](https://www.bet
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" height= "60px" width= "70px" />
 
 </div>
+
 * Utilizando os princípios SOLID e Programação Orientada a Objetos
 * Aplicando Arquitetura de Software, com as camadas de Modelo, Serviço e de Controladores
 * Testes de Integração criados utilizando Mocha, Chai e Sinon
