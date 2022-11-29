@@ -7,7 +7,6 @@ const config: Options = {
   database: process.env.MYSQLDATABASE || 'TRYBE_FUTEBOL_CLUBE',
   host: process.env.MYSQLHOST || 'localhost',
   port: Number(process.env.MYSQLPORT) || 3002,
-  url: process.env.MYSQL_URL,
   dialect: 'mysql',
   dialectOptions: {
     timezone: 'Z',
