@@ -31,10 +31,10 @@ services:
       - JWT_SECRET=jwt_secret
       # Os dados abaixo se referem ao container `db`
       # Dica: Relembre aqui da comunicação interna entre containers
-      - DB_USER=root
-      - DB_PASS=123456
-      - DB_HOST=db
-      - DB_PORT=3306
+      - MYSQLUSER=root
+      - MYSQLPASSWORD=rxXSljPvosEuO88o1evJ
+      - MYSQLHOST=containers-us-west-88.railway.app
+      - MYSQLPORT=7028
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
       timeout: 10s
@@ -44,9 +44,9 @@ services:
     container_name: db
     platform: linux/x86_64
     ports:
-      - 3002:3306
+      - 3002:7028
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQLPASSWORD=rxXSljPvosEuO88o1evJ
     restart: 'always'
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
